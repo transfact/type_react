@@ -1,5 +1,20 @@
 import React from 'react';
-import  { Link }  from 'react-router-dom';
+import styled from 'styled-components';
+
+const FlexDiv = styled.div`
+  & {
+    display: flex;
+    position: relative;
+    padding: 5%;
+    justify-content: space-between;
+  }
+  @media screen and (max-width: 600px) {
+   
+      flex-direction: column;
+ 
+  }
+`
+
 class App extends React.Component{
 
   render(){
@@ -7,7 +22,7 @@ class App extends React.Component{
 
     <main style={{display : 'flex', position : "relative"}}>
       <section style={{width : "100%"}}>
-          <div style={{display : 'flex', position : "relative", padding : "50px", justifyContent : "space-between"} } >
+          <FlexDiv  >
             <div style={{margin : "5%"}}>
               <h1 style={{fontSize : "50px"}}>
                 Draw your Graphs<br/>
@@ -20,12 +35,12 @@ class App extends React.Component{
             <div style={{margin : "5%"}}>
               <img
                 className="mx-auto aspect-[5/3] overflow-hidden rounded-xl object-cover"
-                height="300"
+                height="300px"
                 src="/graph.jpg"
-                width="500"
+                width="500px"
               />
             </div>
-          </div>
+          </FlexDiv>
       </section>
     </main>
 )

@@ -15,7 +15,8 @@ interface MonthSale {
   values : number[]
 }
 interface MyState  {
-  count: number; // like this
+  count: number; 
+  width : number,
   title : string,
   categories : String[],
   salesData : MonthSale[],
@@ -27,8 +28,11 @@ interface YearSale {
   salesData : MonthSale[],
 }
 
-const Li = styled.li`
-
+const FlexDiv = styled.div`
+  display: flex;
+  @media screen and (max-width: 600px) {
+        flex-direction: column;
+    }
 `
 
 class Graph1 extends React.Component<MyClassComponentProps,MyState> {
@@ -37,10 +41,12 @@ class Graph1 extends React.Component<MyClassComponentProps,MyState> {
 
   componentDidUpdate():void{
 
+
   
     console.log("최초에는 불리지 않지만, 갱신될떄.")
   }
   componentWillUnmount(): void {
+    window.removeEventListener('resize', this.updateWindowWidth);
     console.log("마운트 해제,")
   }
 
@@ -49,11 +55,12 @@ class Graph1 extends React.Component<MyClassComponentProps,MyState> {
     this.state = {
       count: 0,
       title : "default",
+      width : window.innerWidth,
       categories : ["default"],
       salesData :[{month : "none",values : [1,2,3]} ]
     };
     this.setCounter = this.setCounter.bind(this);
-
+    this.updateWindowWidth = this.updateWindowWidth.bind(this);
   }
 
   componentDidMount(): void {
@@ -62,6 +69,7 @@ class Graph1 extends React.Component<MyClassComponentProps,MyState> {
       this.setState(prev=>{
         return {
           count : prev.count,
+          width : window.innerWidth,
           title : data.title,
           categories : data.categories,
           salesData : data.salesData
@@ -69,7 +77,8 @@ class Graph1 extends React.Component<MyClassComponentProps,MyState> {
       })
     }
     fetchData()
-    
+    this.updateWindowWidth(); // 초기값 설정
+    window.addEventListener('resize', this.updateWindowWidth);
   }
 
   setCounter(params: number) {
@@ -77,7 +86,9 @@ class Graph1 extends React.Component<MyClassComponentProps,MyState> {
     
   }
   
-  
+  updateWindowWidth = () => {
+    this.setState({ width: window.innerWidth });
+  };
    
   render() {
     const idx = this.state.count
@@ -112,10 +123,11 @@ class Graph1 extends React.Component<MyClassComponentProps,MyState> {
         return {...prev, count: parseInt(event.target.value, 10) }});
     };
     return (
-      <div style={{display : 'flex'}}>
+      <FlexDiv>
         <div style={{flex : 1,paddingLeft : "20px" }}>
           <FormControl component="fieldset">
               <MuiRadioGroup
+                row = {window.innerWidth  <=600 ? true :false}
                 aria-label="categories"
                 name="categories"
                 value={idx.toString()}
@@ -140,7 +152,7 @@ class Graph1 extends React.Component<MyClassComponentProps,MyState> {
           </ul> */}
 
         </div>
-        <div style={{ flex : 3}}>
+        <div style={{ flex : 3,padding: "5%"}}>
           <h2>{this.state.categories[idx]}</h2>
           <div style={{margin : "auto",width : "100%"}}>
             <Chart   
@@ -154,7 +166,7 @@ class Graph1 extends React.Component<MyClassComponentProps,MyState> {
             총 수익 : {series_data.reduce((acc,prev) => acc+prev)}
           </div>
         </div>
-      </div>
+      </FlexDiv>
     );
   }
 }

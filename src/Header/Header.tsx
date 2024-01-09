@@ -14,6 +14,9 @@ const NewButton = styled(Button)`
     &:hover{
         background-color: gray;
     }
+    @media screen and (max-width: 500px) {
+        font-size: small;
+    }
 `
 
 
@@ -34,8 +37,8 @@ class Header extends React.Component<{navigate : NavigateFunction}> {
             <div className={styles.header_container}>
                 <NewButton  variant="text" onClick={(e)=>(this.LinkClick(e,"/"))}>HOME</NewButton>
                 <div style={{height : "100%", paddingRight : "30px"}}>
-                    <NewButton  variant="text" onClick={(e)=>(this.LinkClick(e,"/salesGraphMonth"))}>Link to Graph1</NewButton>
-                    <NewButton  variant="text"  onClick={(e)=>(this.LinkClick(e,"/salesProductMonth"))}>Link to Graph2</NewButton>
+                    <NewButton  variant="text" onClick={(e)=>(this.LinkClick(e,"/salesGraphMonth"))}>Graph1</NewButton>
+                    <NewButton  variant="text"  onClick={(e)=>(this.LinkClick(e,"/salesProductMonth"))}>Graph2</NewButton>
                 </div>
             </div>
         )

@@ -53,12 +53,10 @@ function Filter() {
   
   const setVizStyle = {
     margin: "25px",
-    width: "800px",
-    height: "700px"
+    width: "70%",
+    height: "70%"
   };
   
-  const selectStyle = {
-    marginLeft: "10px"
-  };
+  
   
   export default Filter;

@@ -1,0 +1,8 @@
+.header_container {
+    font-size: 30pt;
+    display: flex;
+    margin: 15px;
+    justify-content: space-between;
+    padding-left: 30px;
+
+}
